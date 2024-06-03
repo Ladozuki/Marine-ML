@@ -1,0 +1,10 @@
+pandas
+plotly
+dash
+seaborn
+scikit-learn
+requests
+dash-core-components
+dash-html-components
+Flash
+
