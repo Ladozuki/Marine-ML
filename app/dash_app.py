@@ -18,7 +18,8 @@ app.layout = html.Div([
     dag.AgGrid(
         id = 'vessel-grid',
         columnDefs = columns, 
-        rowData = rowData)
+        rowData = rowData,
+        defaultColDef={"sortable": True, "filter": True, "resizable": True},)
 ])
 
 #Run the app
