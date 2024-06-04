@@ -42,6 +42,17 @@ def random_category(vessel_type):
     categories = random.choice(categories[vessel_type])
     return categories
 
+def random_dimensions(vessel_type):
+    dimensions = {
+        "Container Ship": (random.randint(70, 400), random.randint(14, 60)),
+    "Tanker": (random.randint(70, 350), random.randint(20, 65)),
+    "LNG Carrier": (random.randint(200, 300), random.randint(40, 50)),
+    "Bulk Carrier": (random.randint(100, 300), random.randint(20, 60)),
+    "Chemical Tanker": (random.randint(100, 250), random.randint(14, 40)),
+    "LPG Carrier": (random.randint(100, 230), random.randint(14, 40)),
+    "Product Tanker": (random.randint(125, 280), random.randint(25, 50))}
+    return dimensions[vessel_type]
+
 def random_date(start, end):
     return start + timedelta(days=random.randint(0, (end - start).days))
  
@@ -70,8 +81,7 @@ data = {"Charter Date": [random_date(start_date, end_date) for _ in range(sample
 
 data['Cargo Capacity (DWT)'] = [random_capacity(v) if v != 'Container Ship' else None for v in data['Vessel Type']]
 data['Container Capacity (TEU)'] = [random_capacity(v) if v == 'Container Ship' else None for v in data['Vessel Type']]
-data['Vessel Length (m)'] = [random.randint(70, 400) for i in range(samples)]
-data['Vessel breadth (m)'] = [random.randint (15, 60) for i in range(samples)]
+data['Vessel Length (m)'], data['Vessel breadth (m)'] = zip(*[random_dimensions(v) for v in data["Vessel Type"]])
 data['Charter Price ($/day)'] = [charter_prices(v) for v in data['Vessel Type']]
 data['Duration (days)'] = [random_duration for i in range(samples)]
 # data['Route'] = 
