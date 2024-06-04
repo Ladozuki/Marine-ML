@@ -19,7 +19,7 @@ def charter_prices(vessel_type):
 def random_capacity(vessel_type):
     capacities = {
         "Container Ship": (3000, 14000),
-        "Tanker": (50000, 4000000),
+        "Tanker": (50000, 400000),
         "LNG Carrier": (125000, 150000),
         "Bulk Carrier": (10000, 200000),
         "Chemical Tanker": (10000, 40000),
@@ -41,6 +41,16 @@ def random_category(vessel_type):
     }
     categories = random.choice(categories[vessel_type])
     return categories
+
+def random_cargo_type(vessel_type):
+    cargo_types = {"Container Ship": ["Electronics", "Apparel", "Machinery", "Chemicals", "Consumer Goods"],
+    "Tanker": ["Refined Products", "Crude Oil"],
+    "LNG Carrier": ["LNG"],
+    "Bulk Carrier": ["Iron Ore", "Coal", "Grain"],
+    "Chemical Tanker": ["Chemicals"],
+    "LPG Carrier": ["LPG"],
+    "Product Tanker": ["Refined Products"]}
+    return random.choice(cargo_types[vessel_type])
 
 def random_dimensions(vessel_type):
     dimensions = {
@@ -72,8 +82,6 @@ end_date = date(2024, 2, 1)
 
 ship_type = ['Container Ship', 'Tanker', 'LNG Carrier', 'Bulk Carrier', 'Chemical Tanker',
              'LPG Carrier', 'Product Tanker']
-goods = ["Electronics", "Crude Oil", "Apparel", "Iron Ore", "Coal", "Machinery", 
-         "Refined Products", "Chemicals", "LNG", "LPG", "Grain", "Consumer Goods"]
 
 data = {"Charter Date": [random_date(start_date, end_date) for _ in range(samples)],
         "Vessel Type": [random.choice(ship_type) for i in range(samples)]
@@ -83,7 +91,7 @@ data['Cargo Capacity (DWT)'] = [random_capacity(v) if v != 'Container Ship' else
 data['Container Capacity (TEU)'] = [random_capacity(v) if v == 'Container Ship' else None for v in data['Vessel Type']]
 data['Vessel Length (m)'], data['Vessel breadth (m)'] = zip(*[random_dimensions(v) for v in data["Vessel Type"]])
 data['Charter Price ($/day)'] = [charter_prices(v) for v in data['Vessel Type']]
-data['Duration (days)'] = [random_duration for i in range(samples)]
+data['Duration (days)'] = [random_duration() for i in range(samples)]
 # data['Route'] = 
 # data['Departure Route'] 
 # data['Destination Port']
@@ -91,8 +99,9 @@ data['Fuel Cost ($/liter)'] = [random_fuel_costs() for i in range(samples)]
 data['LNG Capacity (m)'] = [random_capacity('LNG Carrier') if v == 'LNG Carrier' else None for v in data['Vessel Type']]
 data['LPG Capacity (m)'] = [random_capacity('LPG Carrier') if v == 'LPG Carrier' else None for v in data['Vessel Type']]
 data['Size Category'] = [random_category(v) for v in data['Vessel Type']]
-data['Cargo Type'] = [random.choice(goods) for i in range(samples)]
+data['Cargo Type'] = [random_cargo_type(v) for v in data["Vessel Type"]]
 
 df = pd.DataFrame(data)
 
-print(df) 
+file = '/Users/ladipo/Desktop/Charter/charter_pricepred/data/processed/data_generation.csv'
+df.to_csv(file, index =False)
