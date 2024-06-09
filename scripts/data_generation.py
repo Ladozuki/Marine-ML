@@ -70,7 +70,7 @@ def random_duration():
     return random.randint(45, 450)
 
 def random_fuel_costs():
-    return random.uniform(0.5, 0.8)
+    return round(random.uniform(0.5, 0.8), 2)
 
 def random_fees():
     return random.randint(1000, 4500), random.randint(28000, 45000), random.randint(400, 800)
