@@ -5,7 +5,6 @@ import dash_ag_grid as dag
 
 #Create column definitions
 
-
 df = pd.read_csv('/Users/ladipo/Desktop/Charter/charter_pricepred/data/processed/data_generation.csv')
 
 columns = [{"headerName": col, "field": col} for col in df.columns]
