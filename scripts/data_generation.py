@@ -44,6 +44,10 @@ def random_cargo_type(vessel_type):
     "LPG Carrier": ["Liquified Petroleum Gas"]}
     return random.choice(cargo_types[vessel_type])
 
+def vessel_age():
+    return random.randint(1, 18)
+
+
 def random_dimensions(vessel_type):
     dimensions = {
     "Container Ship": (random.randint(70, 400), random.randint(14, 60)),
@@ -92,6 +96,7 @@ data['Size Category'] = [random_category(v) for v in data['Vessel Type']]
 data['Cargo Type'] = [random_cargo_type(v) for v in data["Vessel Type"]]
 data['Vessel Length (m)'], data['Vessel breadth (m)'] = zip(*[random_dimensions(v) for v in data["Vessel Type"]])
 data['Fuel Cost ($/liter)'] = [random_fuel_costs() for i in range(samples)]
+data['Age_of_Vess'] = [vessel_age() for i in range(samples)]
 
 df = pd.DataFrame(data)
 
