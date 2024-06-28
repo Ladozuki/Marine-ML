@@ -39,27 +39,36 @@ print(df.isna().sum())
 # # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-
-# # Initialize the model
-model = LinearRegression()
-
 X_train.fillna(value = 0, inplace = True)
 y_train.fillna(value = 0, inplace = True)
 X_test.fillna(value = 0, inplace = True)
 y_test.fillna(value = 0, inplace = True)
 
+# # Initialize the model
+LR = LinearRegression()
+RF = RandomForestRegressor()
+SVR = SVR()
 
-# Train the model
-model.fit(X_train, y_train)
+# Train the models
+LR.fit(X_train, y_train)
+RF.fit(X_train, y_train)
+SVR.fit(X_train, y_train)
 
 # Make predictions
-y_pred = model.predict(X_test)
+y_pred_Lr = LR.predict(X_test)
+y_pred_rf = RF.predict(X_test)
+y_pred_svr = SVR.predict(X_test)
+
+
 
 # Calculate evaluation metrics
-mae = mean_absolute_error(y_test, y_pred)
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
+mae = mean_absolute_error(y_test, y_pred_Lr)
+mse = mean_squared_error(y_test, y_pred_Lr)
+r2 = r2_score(y_test, y_pred_Lr)
 
 print(f'Mean Absolute Error: {mae}')
 print(f'Mean Squared Error: {mse}')
 print(f'R^2 Score: {r2}')
+
+from sklearn.model_selection import GridSearchCV
+
