@@ -34,7 +34,7 @@ y = df['Charter Price ($/day)']
 columns_to_fill = ['Container Capacity (TEU)', 'Cargo Capacity (DWT)', 'LPG Capacity (m)', 'LNG Capacity (m)']
 df[columns_to_fill] = df[columns_to_fill].fillna(value= 0)
 
-print(df.isna().sum())
+# print(df.isna().sum())
 
 # # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -54,21 +54,33 @@ LR.fit(X_train, y_train)
 RF.fit(X_train, y_train)
 SVR.fit(X_train, y_train)
 
-# Make predictions
-y_pred_Lr = LR.predict(X_test)
-y_pred_rf = RF.predict(X_test)
-y_pred_svr = SVR.predict(X_test)
+#Create a function that will evaluate multuple regeression models on the test set
+#prints out evaluation metrics
+
+models = { "LineaRegression":LR,
+          "RandomForest": RF,
+          "SVR": SVR}
+
+#generate predcitions using the model
+def evaluate_models(models, X_test, y_test):
+
+    #iterate over each model
+    for model_name, model in models.items():
+        y_pred = model.predict(X_test)
+
+        mae = mean_absolute_error(y_test, y_pred)
+        mse = mean_squared_error(y_test, y_pred)
+        r2 = r2_score(y_test, y_pred)
+
+        #Print the results
+        print(f'{model_name} Mean Absolute Error: {mae}')
+        print(f'{model_name} Mean Squared Error: {mse}')
+        print(f'{model_name} R^2 Score: {r2}')
+
+    
 
 
-
-# Calculate evaluation metrics
-mae = mean_absolute_error(y_test, y_pred_Lr)
-mse = mean_squared_error(y_test, y_pred_Lr)
-r2 = r2_score(y_test, y_pred_Lr)
-
-print(f'Mean Absolute Error: {mae}')
-print(f'Mean Squared Error: {mse}')
-print(f'R^2 Score: {r2}')
+evaluate_models(models, X_test, y_test)
 
 from sklearn.model_selection import GridSearchCV
 
