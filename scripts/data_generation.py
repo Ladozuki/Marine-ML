@@ -104,4 +104,4 @@ df = pd.DataFrame(data)
 file = '/Users/ladipo/Desktop/Charter/charter_pricepred/data/processed/data_generation.csv'
 df.to_csv(file, index =False)
 
-print(df)
+print(df.head())
