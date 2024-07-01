@@ -77,7 +77,6 @@ def evaluate_models(models, X_test, y_test):
         print(f'{model_name} Mean Squared Error: {mse}')
         print(f'{model_name} R^2 Score: {r2}')
 
-    
 
 
 evaluate_models(models, X_test, y_test)
