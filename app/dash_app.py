@@ -67,7 +67,7 @@ app.layout = dbc.Container([
                 html.H3("Exploratory Data Analysis"),
                 dcc.Dropdown(
                     id='eda-feature-dropdown',
-                    options=eda_table_options
+                    options= eda_table_options
                 ),
                 dag.AgGrid(
                     id='vessel-grid',
