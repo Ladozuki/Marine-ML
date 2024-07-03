@@ -62,48 +62,45 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = dbc.Container([
     dcc.Tabs([
+        dcc.Tab(label='Exploratory Data Analysis', children=[
+            html.Div([
+                html.H3("Exploratory Data Analysis"),
+                dcc.Dropdown(
+                    id='eda-feature-dropdown',
+                    options=eda_table_options
+                ),
+                dag.AgGrid(
+                    id='vessel-grid',
+                    columnDefs=columns,
+                    rowData=rowData,
+                    defaultColDef={"sortable": True, "filter": True, "resizable": True}
+                ),
+            ])
+        ]),
         dcc.Tab(label='Charter Price Prediction', children=[
             dbc.Container([
                 dbc.Row([
                     dbc.Col([
-                        generate_form_group("Vessel Size", "vessel_size", placeholder="Enter vessel size"),
-                        generate_form_group("Vessel Age", "vessel_age", placeholder="Enter vessel age"),
-                        generate_form_group("Distance", "distance", placeholder="Enter distance"),
-                        generate_form_group("Fuel Cost", "fuel_cost", placeholder="Enter fuel cost"),
+                        generate_form_group("Vessel Size ", "vessel_size", placeholder="Enter vessel size"),
+                        generate_form_group("Vessel Age ", "vessel_age", placeholder="Enter vessel age"),
+                        generate_form_group("Distance (miles) ", "distance", placeholder="Enter distance"),
+                        generate_form_group("Fuel Cost ($/day) ", "fuel_cost", placeholder="Enter fuel cost"),
                         html.Div([
                             dbc.Label("Vessel Type"),
                             dcc.Dropdown(
                                 id='vessel_type',
-                                options= vessel_type,
+                                options=vessel_type,
                                 placeholder='Select a vessel type'
                             )
                         ])
-                    ], width=6)
+                    ], width=6),
+                    dbc.Button("Predict", id = "predict-buttin", color = 'primary')
                 ])
             ])
         ])
     ])
-]),
-
-dcc.Tab(label = 'Exploratory Data Analysis', children = [
-    html.Div([
-        html.H3("Exploratory Data Analysis"),
-        dcc.Dropdown(
-            id = 'eda-feature-dropdown',
-            options = eda_table_options)
-            ]),
-            dag.AgGrid(
-                id = 'vessel-grid',
-                columnDefs = columns, 
-                rowData = rowData,
-                defaultColDef={"sortable": True, "filter":
-                               True, "resizable": True}),
-                               dbc.Container([
-                                   dbc.Row([
-                                       dbc.Col(html.H1("Hello, Dash with Bootstrap!"))
-                                       ])
-                                       ]),
 ])
+
 
 # @app.callback(
 #     Output('vessel-grid', 'rowData'),
