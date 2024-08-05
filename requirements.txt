@@ -7,4 +7,4 @@ requests
 dash-core-components
 dash-html-components
 Flash
-
+dash-ag-grid
