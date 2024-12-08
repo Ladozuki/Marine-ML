@@ -1,10 +1,27 @@
-pandas
-plotly
-dash
-seaborn
-scikit-learn
-requests
-dash-core-components
-dash-html-components
-Flash
-dash-ag-grid
+pandas                  # Data manipulation
+numpy                   # Array processing
+scikit-learn            # Machine learning
+matplotlib              # Visualization
+seaborn                 # Statistical visualization
+requests                # API requests
+
+
+plotly                  # Interactive plots
+dash                   # Interactive web dashboards
+dash-bootstrap-components  # Enhanced Dash UI components
+dash-core-components    # Core Dash components (split off)
+dash-html-components    # HTML support in Dash
+dash-ag-grid            # Interactive grid components for Dash
+
+
+Flask                   # Lightweight web framework
+Flask-RESTful           # REST API support for Flask
+flask-cors              # Cross-Origin Resource Sharing
+
+xgboost                 # Boosted trees algorithm
+lightgbm                # High-performance ML models
+catboost                # Gradient boosting for categorical data
+
+dash-mantine-components # UI enhancements for Dash
+dash-daq                # Data acquisition components (knobs, switches)
+statsmodels             # Statistical modeling
