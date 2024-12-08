@@ -1,0 +1,23 @@
+{
+    "vessel_types": {
+      "Tugboat": {
+        "charter_price_range": [5000, 15000],
+        "bollard_pull_range": [30, 60],
+        "categories": ["Harbor Tug", "Escort Tug", "Offshore Tug"],
+        "use_cases": ["Docking/Undocking", "Coastal Towing", "Emergency Response"]
+      },
+      "Tanker": {
+        "charter_price_range": [15000, 50000],
+        "capacity_range": [20000, 40000],
+        "categories": ["Handysize", "Panamax", "Aframax", "Suezmax", "VLCC"],
+        "cargo_types": ["Refined Products", "Crude Oil"]
+      },
+      "Lorry Tanker": {
+        "freight_rate_range": [1.0, 3.0],
+        "capacity_range": [20000, 40000],
+        "categories": ["Small", "Medium", "Large"],
+        "cargo_types": ["Petrol", "Diesel", "Chemicals"]
+      }
+    }
+  }
+  
