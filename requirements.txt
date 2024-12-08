@@ -4,7 +4,7 @@ scikit-learn            # Machine learning
 matplotlib              # Visualization
 seaborn                 # Statistical visualization
 requests                # API requests
-
+joblib
 
 plotly                  # Interactive plots
 dash                   # Interactive web dashboards
@@ -19,9 +19,10 @@ Flask-RESTful           # REST API support for Flask
 flask-cors              # Cross-Origin Resource Sharing
 
 xgboost                 # Boosted trees algorithm
-lightgbm                # High-performance ML models
 catboost                # Gradient boosting for categorical data
 
 dash-mantine-components # UI enhancements for Dash
 dash-daq                # Data acquisition components (knobs, switches)
 statsmodels             # Statistical modeling
+
+
