@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 from sklearn.ensemble import RandomForestRegressor
@@ -9,7 +9,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # Set BASE_DIR to the project root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-data_path = os.path.join(BASE_DIR, "data", "processed", "df_gen.csv")
+data_path = os.path.join('data', 'processed', 'df_gen.csv')
 
 # Debug print
 print(f"Looking for file at: {data_path}")
@@ -29,7 +29,7 @@ columns_to_fill = ['Capacity/Bollard Pull', 'Duration (days)']
 df[columns_to_fill] = df[columns_to_fill].fillna(value=0)
 
 # One-hot encode categorical variables
-df = pd.get_dummies(df, columns=['Vessel Type', 'Cargo Type/Use Case'], drop_first=True)
+df = pd.get_dummies(df, columns=['Vessel Type', 'Cargo Type/Use Case', 'Route ID'], drop_first=True)
 
 # Scale numerical features
 scaler = MinMaxScaler()
@@ -38,7 +38,7 @@ df[numerical_features] = scaler.fit_transform(df[numerical_features])
 
 # Drop irrelevant or multicollinear columns
 columns_to_drop = ['Charter Date', 'Size Category', 'Vessel breadth (m)']  # Adjust based on your data
-df = df.drop(columns=columns_to_drop, axis=1, errors='ignore')
+df = df.drop(columns=columns_to_drop, axis=1, errors='ignore')  # Removed 'drop_first'
 
 # Separate features and target
 X = df.drop(columns='Charter Price ($/day)', errors='ignore')
