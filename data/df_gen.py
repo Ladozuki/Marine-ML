@@ -41,47 +41,63 @@ def generate_data(samples, start_date, end_date):
     # Base data
     data = {
         "Charter Date": [random_date(start_date, end_date) for _ in range(samples)],
-        "Vessel Type": [random.choice(list(config['vessel_types'].keys())) for _ in range(samples)]
+        "Vessel Type": [],
+        "Route ID": []
     }
-    
-    # Add features based on vessel type
+
     charter_prices = []
     durations = []
     cargo_types = []
     capacities = []
+    distances = []
+    port_fees = []
+    daily_consumption = []
+    average_speeds = []  # New list to store average speeds
 
-    for v in data["Vessel Type"]:
-        vessel_config = config["vessel_types"][v]
-        
-        # Charter Price or Freight Rate
-        if "charter_price_range" in vessel_config:
-            charter_prices.append(random_value(vessel_config["charter_price_range"]))
-        elif "freight_rate_range" in vessel_config:
-            charter_prices.append(random_value(vessel_config["freight_rate_range"]))
+    for _ in range(samples):
+        # Select Route ID and Vessel Type
+        route_id = random.choice(list(config["routes"].keys()))
+        route_config = config["routes"][route_id]
+        vessel_type = random.choice(route_config["frequent_vessels"])
 
-        # Duration (general assumption for charters)
-        durations.append(random.randint(45, 450))
+        # Append to data once per sample
+        data["Vessel Type"].append(vessel_type)
+        data["Route ID"].append(route_id)
 
-        # Cargo Type or Use Case
-        if "cargo_types" in vessel_config:
-            cargo_types.append(random.choice(vessel_config["cargo_types"]))
-        elif "use_cases" in vessel_config:
-            cargo_types.append(random.choice(vessel_config["use_cases"]))
+        # Vessel-specific configuration
+        vessel_config = config["vessel_types"][vessel_type]
+        charter_prices.append(random_value(vessel_config.get("charter_price_range", (5000, 10000))))
+        capacities.append(random_value(vessel_config.get("capacity_range", (1000, 5000))))
+        cargo_types.append(random.choice(vessel_config.get("cargo_types", ["Unknown"])))
+        daily_consumption.append(vessel_config.get("daily_consumption", 0))
+        average_speeds.append(vessel_config.get("average_speed_knots", 0))  # Add average_speed_knots
 
-        # Capacity or Bollard Pull
-        if "capacity_range" in vessel_config:
-            capacities.append(random_value(vessel_config["capacity_range"]))
-        elif "bollard_pull_range" in vessel_config:
-            capacities.append(random_value(vessel_config["bollard_pull_range"]))
+        # Route-specific configuration
+        distances.append(route_config["distance_nm"])
+        port_fees.append(route_config["port_fees"])
+
+        # Voyage duration calculation
+        duration = route_config["distance_nm"] / vessel_config["average_speed_knots"] / 24
+        durations.append(duration)
 
     # Add generated data to the dictionary
     data["Charter Price ($/day)"] = charter_prices
     data["Duration (days)"] = durations
     data["Cargo Type/Use Case"] = cargo_types
     data["Capacity/Bollard Pull"] = capacities
-    
-    # Convert to DataFrame
+    data["daily_consumption"] = daily_consumption
+    data["Distance (nm)"] = distances
+    data["Port Fees ($)"] = port_fees
+    data["Average Speed (knots)"] = average_speeds  # Add the new column
+
+    # Debug: Ensure all arrays have the same length
+    print({k: len(v) for k, v in data.items()})
+    lengths = {k: len(v) for k, v in data.items()}
+    assert len(set(lengths.values())) == 1, f"Array lengths are inconsistent: {lengths}"
+
     return pd.DataFrame(data)
+
+
 
 # Generate data and save to CSV
 df = generate_data(samples=2500, start_date=date(2021, 1, 1), end_date=date(2024, 2, 1))
