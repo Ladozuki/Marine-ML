@@ -1,23 +1,197 @@
 {
-    "vessel_types": {
-      "Tugboat": {
-        "charter_price_range": [5000, 15000],
-        "bollard_pull_range": [30, 60],
-        "categories": ["Harbor Tug", "Escort Tug", "Offshore Tug"],
-        "use_cases": ["Docking/Undocking", "Coastal Towing", "Emergency Response"]
-      },
-      "Tanker": {
-        "charter_price_range": [15000, 50000],
-        "capacity_range": [20000, 40000],
-        "categories": ["Handysize", "Panamax", "Aframax", "Suezmax", "VLCC"],
-        "cargo_types": ["Refined Products", "Crude Oil"]
-      },
-      "Lorry Tanker": {
-        "freight_rate_range": [1.0, 3.0],
-        "capacity_range": [20000, 40000],
-        "categories": ["Small", "Medium", "Large"],
-        "cargo_types": ["Petrol", "Diesel", "Chemicals"]
-      }
+  "routes": {
+    "TC1": {
+      "distance_nm": 5600,
+      "frequent_vessels": ["LR2", "LR1"],
+      "description": "Major trade route for naphtha and condensates.",
+      "port_fees": 30000,
+      "canal_fees": 300000
+    },
+    "TC2_37": {
+      "distance_nm": 3000,
+      "frequent_vessels": ["MR"],
+      "description": "Part of the Atlantic CPP trade.",
+      "port_fees": 25000,
+      "canal_fees": 0
+    },
+    "TC5": {
+      "distance_nm": 5600,
+      "frequent_vessels": ["LR2", "LR1"],
+      "description": "Overlaps with TC1 but focuses on refined products.",
+      "port_fees": 30000,
+      "canal_fees": 300000
+    },
+    "TC6": {
+      "distance_nm": 1200,
+      "frequent_vessels": ["MR"],
+      "description": "Short-haul trade route for CPP.",
+      "port_fees": 10000,
+      "canal_fees": 0
+    },
+    "TC7": {
+      "distance_nm": 3700,
+      "frequent_vessels": ["LR2", "LR1"],
+      "description": "Focuses on jet fuel and diesel exports.",
+      "port_fees": 20000,
+      "canal_fees": 250000
+    },
+    "TC11": {
+      "distance_nm": 2800,
+      "frequent_vessels": ["MR"],
+      "description": "A vital route for CPP in Asia-Pacific.",
+      "port_fees": 18000,
+      "canal_fees": 0
+    },
+    "TD3C": {
+      "distance_nm": 6500,
+      "frequent_vessels": ["VLCC"],
+      "description": "Major crude oil trade route to Asia.",
+      "port_fees": 50000,
+      "canal_fees": 350000
+    },
+    "TD20": {
+      "distance_nm": 4300,
+      "frequent_vessels": ["Suezmax"],
+      "description": "Significant for crude exports from Nigeria and Angola.",
+      "port_fees": 35000,
+      "canal_fees": 200000
+    },
+    "TD8": {
+      "distance_nm": 4600,
+      "frequent_vessels": ["Aframax"],
+      "description": "Focuses on heated crude and fuel oil.",
+      "port_fees": 30000,
+      "canal_fees": 250000
+    },
+    "TD19": {
+      "distance_nm": 800,
+      "frequent_vessels": ["Aframax"],
+      "description": "A short-haul route for DPP in the Med.",
+      "port_fees": 15000,
+      "canal_fees": 50000
+    },
+    "STS1": {
+      "distance_nm": 10,
+      "frequent_vessels": ["VLCC", "Aframax", "MR"],
+      "description": "Lagos Offshore STS Operations for crude exports.",
+      "port_fees": 0,
+      "canal_fees": 0
+    },
+    "STS2": {
+      "distance_nm": 15,
+      "frequent_vessels": ["Suezmax", "Aframax"],
+      "description": "Offshore Tema (Ghana) operations for bunkering.",
+      "port_fees": 0,
+      "canal_fees": 0
+    },
+    "STS3": {
+      "distance_nm": 12,
+      "frequent_vessels": ["VLCC", "Aframax", "MR"],
+      "description": "Offshore Lome (Togo) operations for fuel redistribution.",
+      "port_fees": 0,
+      "canal_fees": 0
+    },
+    "TC14": {
+      "distance_nm": 4000,
+      "frequent_vessels": ["MR"],
+      "description": "US Gulf to Continent for diesel and gasoline.",
+      "port_fees": 22000,
+      "canal_fees": 150000
+    },
+    "TD6": {
+      "distance_nm": 1200,
+      "frequent_vessels": ["Suezmax"],
+      "description": "Short-haul crude route in the Mediterranean.",
+      "port_fees": 12000,
+      "canal_fees": 50000
+    },
+    "TD15": {
+      "distance_nm": 11000,
+      "frequent_vessels": ["VLCC"],
+      "description": "Long-haul crude route from West Africa to China.",
+      "port_fees": 60000,
+      "canal_fees": 400000
+    },
+    "TC23": {
+      "distance_nm": 500,
+      "frequent_vessels": ["MR"],
+      "description": "Short-distance refined product route in Europe.",
+      "port_fees": 8000,
+      "canal_fees": 0
+    }
+  },
+  "vessel_types": {
+    "VLCC": {
+      "daily_consumption": 55,
+      "average_speed_knots": 14,
+      "cargo_capacity_dwt": 320000,
+      "operational_costs_daily": 25000,
+      "fuel_tank_capacity_mt": 3500,
+      "cargo_types": ["Crude Oil"],
+      "capacity_range": [300000, 320000]
+    },
+    "Suezmax": {
+      "daily_consumption": 40,
+      "average_speed_knots": 13,
+      "cargo_capacity_dwt": 150000,
+      "operational_costs_daily": 22000,
+      "fuel_tank_capacity_mt": 3000,
+      "cargo_types": ["Crude Oil", "Refined Products"],
+      "capacity_range": [140000, 150000]
+    },
+    "Aframax": {
+      "daily_consumption": 30,
+      "average_speed_knots": 12,
+      "cargo_capacity_dwt": 100000,
+      "operational_costs_daily": 18000,
+      "fuel_tank_capacity_mt": 2000,
+      "cargo_types": ["Crude Oil", "Fuel Oil"],
+      "capacity_range": [95000, 105000]
+    },
+    "LR2": {
+      "daily_consumption": 40,
+      "average_speed_knots": 13,
+      "cargo_capacity_dwt": 80000,
+      "operational_costs_daily": 18000,
+      "fuel_tank_capacity_mt": 2500,
+      "cargo_types": ["Refined Products"],
+      "capacity_range": [75000, 85000]
+    },
+    "LR1": {
+      "daily_consumption": 35,
+      "average_speed_knots": 12.5,
+      "cargo_capacity_dwt": 60000,
+      "operational_costs_daily": 15000,
+      "fuel_tank_capacity_mt": 2000,
+      "cargo_types": ["Refined Products"],
+      "capacity_range": [55000, 65000]
+    },
+    "MR": {
+      "daily_consumption": 25,
+      "average_speed_knots": 12,
+      "cargo_capacity_dwt": 45000,
+      "operational_costs_daily": 12000,
+      "fuel_tank_capacity_mt": 1500,
+      "cargo_types": ["Gasoline", "Diesel"],
+      "capacity_range": [40000, 50000]
+    },
+    "Tugboat_30t": {
+      "bollard_pull_tons": 30,
+      "daily_consumption": 10,
+      "average_speed_knots": 10,
+      "operational_costs_daily": 5000,
+      "fuel_tank_capacity_mt": 200,
+      "cargo_types": ["Docking", "Towing"],
+      "bollard_pull_range": [25, 30]
+    },
+    "Tugboat_60t": {
+      "bollard_pull_tons": 60,
+      "daily_consumption": 15,
+      "average_speed_knots": 12,
+      "operational_costs_daily": 7000,
+      "fuel_tank_capacity_mt": 300,
+      "cargo_types": ["Docking", "Towing"],
+      "bollard_pull_range": [50, 60]
     }
   }
-  
+}
